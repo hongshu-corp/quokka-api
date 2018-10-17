@@ -48,7 +48,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
-    testCompile("com.genesisfin:core-test:${coreTestVersion}")
+//    testCompile("com.genesisfin:core-test:${coreTestVersion}")
 }
 
 test {
