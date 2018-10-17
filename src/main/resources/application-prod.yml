@@ -4,13 +4,11 @@ security:
     expirationTime: 860000000
     tokenPrefix: "Bearer "
     headerString: "Authorization"
-  allowedOrigins:
-  - http://www.test.packagebutler.com
 
 server:
   port: 10020
 
-packagebutler:
+genesisfin:
   baseUrl:
     logistics: http://localhost:10000/
     payment: http://localhost:10010/

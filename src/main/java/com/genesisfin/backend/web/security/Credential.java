@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Credential {
 
     private long id;
-    private String phone;
-    private String verificationCode;
+    private String username;
+    private String password;
 
 }

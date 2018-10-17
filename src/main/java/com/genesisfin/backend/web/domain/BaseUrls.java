@@ -10,16 +10,16 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class BaseUrls {
 
-    @Value("${packagebutler.baseUrl.logistics}")
+    @Value("${genesisfin.baseUrl.logistics}")
     private String logistics;
 
-    @Value("${packagebutler.baseUrl.member}")
+    @Value("${genesisfin.baseUrl.member}")
     private String member;
 
-    @Value("${packagebutler.baseUrl.order}")
+    @Value("${genesisfin.baseUrl.order}")
     private String order;
 
-    @Value("${packagebutler.baseUrl.payment}")
+    @Value("${genesisfin.baseUrl.payment}")
     private String payment;
 
 }
