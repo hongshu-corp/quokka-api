@@ -8,27 +8,4 @@ import static com.genesisfin.backend.web.domain.Api.createApi;
 
 @Configuration
 public class ApiFactory {
-
-    @Autowired
-    private BaseUrls baseUrls;
-
-    @Bean
-    public LogisticsApi createLogisticsApi() {
-        return createApi(LogisticsApi.class, baseUrls.getLogistics());
-    }
-
-    @Bean
-    public MemberApi createMemberApi() {
-        return createApi(MemberApi.class, baseUrls.getMember());
-    }
-
-    @Bean
-    public OrderApi createOrderApi() {
-        return createApi(OrderApi.class, baseUrls.getOrder());
-    }
-
-    @Bean
-    public PaymentApi createPaymentApi() {
-        return createApi(PaymentApi.class, baseUrls.getPayment());
-    }
 }

@@ -8,9 +8,3 @@ security:
 server:
   port: 9700
 
-genesisfin:
-  baseUrl:
-    logistics: http://localhost:10000/
-    payment: http://localhost:10010/
-    member: http://localhost:10030/
-    order: http://localhost:10040/
