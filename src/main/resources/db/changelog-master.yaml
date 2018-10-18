@@ -30,7 +30,7 @@ databaseChangeLog:
                     nullable: false
             - column:
                 name: created_time
-                type: time
+                type: datetime
             - column:
                 name: updated_time
-                type: time
+                type: datetime

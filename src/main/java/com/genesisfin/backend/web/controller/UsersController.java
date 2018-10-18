@@ -2,7 +2,6 @@ package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.model.User;
 import com.genesisfin.backend.web.repository.UserRepository;
-import com.genesisfin.backend.web.viewmodel.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -10,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -29,13 +28,10 @@ public class UsersController {
     }
 
     @PostMapping
-    public void create(@Valid @RequestBody UserView userView) {
-        User user = new User();
-        user.setName(userView.getName())
-                .setEmail(userView.getEmail())
-                .setPassword(new BCryptPasswordEncoder().encode(userView.getPassword()))
-                .setUpdatedTime(new Date())
-                .setUpdatedTime(new Date());
+    public void create(@Valid @RequestBody User user) {
+        user.setCreatedTime(LocalDateTime.now());
+        user.setUpdatedTime(LocalDateTime.now());
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
         userRepository.save(user);
     }

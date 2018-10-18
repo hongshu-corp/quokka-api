@@ -1,5 +1,8 @@
 package com.genesisfin.backend.web.security;
 
+import com.genesisfin.backend.web.model.User;
+import com.genesisfin.backend.web.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,19 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Credential credential = new Credential() {{
-            setUsername(username);
-            setPassword("foofoo");
-        }};
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
 
-        return memberFrom(credential);
-    }
-
-    private UserDetails memberFrom(Credential credential) {
-        Member member = new Member(credential.getUsername(), credential.getPassword());
-        member.setId(credential.getId());
+        Member member = new Member(user.getEmail(), user.getPassword());
+        member.setId(user.getId());
         return member;
     }
 }

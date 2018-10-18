@@ -1,12 +1,14 @@
 package com.genesisfin.backend.web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -26,12 +28,12 @@ public class User implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
 
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 
 }
