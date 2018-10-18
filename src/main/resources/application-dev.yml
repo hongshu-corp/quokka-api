@@ -5,6 +5,13 @@ security:
     tokenPrefix: "Bearer "
     headerString: "Authorization"
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/genesisfin_development?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: qinj221!!
+
 server:
   port: 9700
 
