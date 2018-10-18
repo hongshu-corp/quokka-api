@@ -7,11 +7,19 @@ security:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/genesisfin_development?useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password: qinj221!!
+    url: jdbc:mysql://localhost:3306/genesisfin_development?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false&serverTimezone=UTC
+    username: genesisfin
+    password: genesisfinpassword
+
+  h2:
+    console:
+      enabled: true
+
+
+logging:
+  level:
+    liquibase: INFO
 
 server:
   port: 9700
-
