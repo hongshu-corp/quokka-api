@@ -21,8 +21,9 @@ public class UsersController {
 
     @GetMapping
     public List<User> index(@RequestParam(value = "page", defaultValue = "0") int page,
-                            @RequestParam(value = "page_size", defaultValue = "20") int size) {
-        PageRequest request = PageRequest.of(page, size, Sort.Direction.DESC, "id");
+                            @RequestParam(value = "limit", defaultValue = "20") int limit) {
+        if (--page < 0) { page = 0; }
+        PageRequest request = PageRequest.of(page, limit, Sort.Direction.DESC, "id");
 
         return userRepository.findAll(request).getContent();
     }
