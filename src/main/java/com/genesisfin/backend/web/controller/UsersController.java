@@ -2,7 +2,10 @@ package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.model.User;
 import com.genesisfin.backend.web.repository.UserRepository;
+import com.genesisfin.backend.web.viewmodel.PagedResult;
+import com.genesisfin.backend.web.viewmodel.PagedResultHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,14 +24,14 @@ public class UsersController {
     private UserRepository userRepository;
 
     @GetMapping
-    public List<User> index(@RequestParam(value = "page", defaultValue = "0") int page,
-                            @RequestParam(value = "limit", defaultValue = "20") int limit) {
+    public PagedResult<User> index(@RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "limit", defaultValue = "20") int limit) {
         if (--page < 0) {
             page = 0;
         }
         PageRequest request = PageRequest.of(page, limit, Sort.Direction.DESC, "id");
 
-        return userRepository.findAll(request).getContent();
+        return PagedResultHelper.from(userRepository.findAll(request));
     }
 
     @PostMapping
