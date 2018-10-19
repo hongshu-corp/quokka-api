@@ -43,9 +43,9 @@ public class UsersController {
         return userRepository.save(user);
     }
 
-    @PutMapping(path = "/{id}")
-    public User update(@PathVariable Long id, @Valid @RequestBody User user) {
-        Optional<User> existing= userRepository.findById(id);
+    @PutMapping
+    public User update(@Valid @RequestBody User user) {
+        Optional<User> existing= userRepository.findById(user.getId());
         if (existing == null) { return new User(); }
 
         User originUser = existing.get();
