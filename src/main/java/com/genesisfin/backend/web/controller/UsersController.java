@@ -5,7 +5,6 @@ import com.genesisfin.backend.web.repository.UserRepository;
 import com.genesisfin.backend.web.viewmodel.PagedResult;
 import com.genesisfin.backend.web.viewmodel.PagedResultHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
