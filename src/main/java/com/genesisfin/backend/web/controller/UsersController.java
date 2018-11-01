@@ -14,10 +14,13 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
 public class UsersController {
+
+    public final static String DEFAULT_EMAIL = "admin@hongshu.io";
 
     @Autowired
     private UserRepository userRepository;
@@ -44,8 +47,10 @@ public class UsersController {
 
     @PutMapping
     public User update(@Valid @RequestBody User user) {
-        Optional<User> existing= userRepository.findById(user.getId());
-        if (existing == null) { return new User(); }
+        Optional<User> existing = userRepository.findById(user.getId());
+        if (existing == null) {
+            return new User();
+        }
 
         User originUser = existing.get();
         originUser.setName(user.getName());
@@ -77,5 +82,20 @@ public class UsersController {
             userRepository.delete(user.get());
         }
         return user;
+    }
+
+    @PostMapping(path = "/default")
+    public String createDefaultUser() {
+        User user = userRepository.findByEmail(DEFAULT_EMAIL);
+        if (user != null) {
+            return "User already exists";
+        }
+
+        String password = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
+
+        user = new User().setEmail(DEFAULT_EMAIL).setName("admin").setPassword(new BCryptPasswordEncoder().encode(password));
+        userRepository.save(user);
+
+        return password;
     }
 }
