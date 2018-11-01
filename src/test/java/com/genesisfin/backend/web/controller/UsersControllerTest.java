@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class UsersControllerTest extends ControllerTestBase {
+public class UsersControllerTest {
 
     private UserRepository userRepository = mock(UserRepository.class);
     UsersController controller = new UsersController(userRepository);
