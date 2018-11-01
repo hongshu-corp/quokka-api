@@ -2,37 +2,34 @@ package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.model.User;
 import com.genesisfin.backend.web.repository.UserRepository;
-import org.junit.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MvcResult;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import static com.genesisfin.backend.web.controller.UsersController.DEFAULT_EMAIL;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-
-@WebMvcTest(UsersController.class)
 public class UsersControllerTest extends ControllerTestBase {
 
-    @MockBean
-    private UserRepository userRepository;
+    private UserRepository userRepository = mock(UserRepository.class);
+    UsersController controller = new UsersController(userRepository);
 
-    @Test
-    public void testCreateDefaultUser_whenUserExists() throws Exception {
-        given(userRepository.findByEmail(DEFAULT_EMAIL)).willReturn(new User());
-        mockMvc.perform(post("/users/default"))
-                .andExpect(content().string("User already exists"));
-    }
+    @Nested
+    public class DefaultUser {
+        @Test
+        public void when_user_exists() {
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(new User());
+            String result = controller.createDefaultUser();
+            assertEquals("User already exists", result);
+        }
 
-    @Test
-    public void testCreateDefaultUser_whenUserDoesNotExists() throws  Exception{
-        given(userRepository.findByEmail(DEFAULT_EMAIL)).willReturn(null);
-        MvcResult result = mockMvc.perform(post("/users/default")).andReturn();
-        String content = result.getResponse().getContentAsString();
+        @Test
+        public void when_user_does_not_exist() {
 
-        assertEquals(8, content.length());
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(null);
+            String result = controller.createDefaultUser();
+            assertEquals(8, result.length());
+        }
     }
 }

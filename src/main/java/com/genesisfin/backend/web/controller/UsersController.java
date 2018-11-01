@@ -22,8 +22,12 @@ public class UsersController {
 
     public final static String DEFAULT_EMAIL = "admin@hongshu.io";
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UsersController(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @GetMapping
     public PagedResult<User> index(@RequestParam(value = "page", defaultValue = "0") int page,

@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '2.0.5.RELEASE'
         commonVersion = 'v1.0.0-alpha.5'
-        coreTestVersion = 'v1.0.0'
+        junitVersion = '5.3.1'
     }
     repositories {
         mavenCentral()
@@ -32,7 +32,6 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven { url "https://maven.guoguo.io/repository/maven/" }
 }
 
 dependencies {
@@ -56,8 +55,9 @@ dependencies {
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.security:spring-security-test'
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 
-//    testCompile("com.genesisfin:core-test:${coreTestVersion}")
 }
 
 test {
@@ -65,6 +65,7 @@ test {
     jacoco {
         enabled true
     }
+    useJUnitPlatform()
 }
 
 task cucumber(dependsOn: testClasses) {
