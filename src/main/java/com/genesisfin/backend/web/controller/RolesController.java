@@ -71,11 +71,10 @@ public class RolesController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public Optional<Role> destroy(@PathVariable Long id) {
+    public void destroy(@PathVariable Long id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role != null) {
             roleRepository.delete(role.get());
         }
-        return role;
     }
 }

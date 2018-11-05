@@ -80,12 +80,11 @@ public class UsersController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public Optional<User> destroy(@PathVariable Long id) {
+    public void destroy(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user != null) {
             userRepository.delete(user.get());
         }
-        return user;
     }
 
     @PostMapping(path = "/default")
