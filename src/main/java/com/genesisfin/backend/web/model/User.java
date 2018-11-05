@@ -14,10 +14,6 @@ import java.util.Collection;
 @Accessors(chain = true)
 @Table(name = "users")
 public class User extends ModelBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Long id;
 
     @Column(nullable = false)
     private String name;

@@ -13,9 +13,6 @@ import java.util.Collection;
 @Accessors(chain = true)
 @Table(name = "roles")
 public class Role extends ModelBase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String name;
 

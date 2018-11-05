@@ -13,6 +13,10 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class ModelBase implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
+    private Long id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
