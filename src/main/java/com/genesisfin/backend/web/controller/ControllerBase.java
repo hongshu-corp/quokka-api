@@ -9,13 +9,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
 import javax.validation.Valid;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Optional;
 
 public abstract class ControllerBase<T extends ModelBase, TRepository extends JpaRepository<T, Long>> {
-
-    private Class<T> modelClass;
 
     protected TRepository repository;
 
@@ -48,7 +50,7 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
         Optional<T> existing = repository.findById(model.getId());
         if (existing == null) {
             try {
-                return modelClass.newInstance();
+                return (T) model.getClass().newInstance();
             } catch (InstantiationException e) {
                 return null;
             } catch (IllegalAccessException e) {
@@ -58,14 +60,43 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
 
         T original = existing.get();
 
-        // TODO: Set the properties here.
-//        originRole.setName(role.getName());
+        setProperties(model, original);
 
         this.beforeUpdate(original);
         this.beforeSave(original);
         repository.save(original);
 
         return original;
+    }
+
+    private void setProperties(T model, T original) {
+        if (model == null) return;
+
+        for (Field field : model.getClass().getDeclaredFields()){
+            if(field.isAnnotationPresent(Column.class)){
+                String name = field.getName();
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+                Method getMethod = null;
+                Method setMethod = null;
+                try {
+                    getMethod = model.getClass().getMethod("get" + name);
+                    Object value = getMethod.invoke(model);
+                    setMethod = model.getClass().getMethod("set" + name, value.getClass());
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) { }
+
+                if (getMethod == null || setMethod == null) { continue;}
+
+                try {
+                    setMethod.invoke(original, getMethod.invoke(model));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     @PatchMapping(path = "/{id}")
