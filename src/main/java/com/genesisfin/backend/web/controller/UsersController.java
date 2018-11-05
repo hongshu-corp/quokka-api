@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,8 +41,6 @@ public class UsersController {
 
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        user.setCreatedTime(LocalDateTime.now());
-        user.setUpdatedTime(LocalDateTime.now());
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
         return userRepository.save(user);
@@ -59,7 +56,6 @@ public class UsersController {
         User originUser = existing.get();
         originUser.setName(user.getName());
         originUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        originUser.setUpdatedTime(LocalDateTime.now());
         originUser.setEmail(user.getEmail());
 
         userRepository.save(originUser);

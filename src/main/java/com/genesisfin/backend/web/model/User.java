@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -15,7 +13,7 @@ import java.util.Collection;
 @Setter
 @Accessors(chain = true)
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends ModelBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
@@ -30,10 +28,6 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String password;
-
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
