@@ -1,99 +1,99 @@
 databaseChangeLog:
-    - changeSet:
-        id: 201811021149
-        author: Jeremy Cui
-        changes:
-        - createTable:
-            tableName: roles
-            columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                    nullable: false
-                    primaryKey: true
-            - column:
-                name: name
-                type: nvarchar(255)
-                constraints:
-                    nullable: false
-            - column:
-                name: created_time
-                type: datetime
-            - column:
-                name: updated_time
-                type: datetime
-        - createTable:
-            tableName: permissions
-            columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                    nullable: false
-                    primaryKey: true
-            - column:
-                name: name
-                type: nvarchar(255)
-                constraints:
-                    nullable: false
-            - column:
-                name: created_time
-                type: datetime
-            - column:
-                name: updated_time
-                type: datetime
-        - createTable:
-            tableName: user_roles
-            columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                    nullable: false
-                    primaryKey: true
-            - column:
-                name: user_id
-                type: bigint
-                constraints:
-                    nullable: false
-            - column:
-                name: role_id
-                type: bigint
-                constraints:
-                    nullable: false
-            - column:
-                name: created_time
-                type: datetime
-            - column:
-                name: updated_time
-                type: datetime
-        - createTable:
-            tableName: role_permissions
-            columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                    nullable: false
-                    primaryKey: true
-            - column:
-                name: role_id
-                type: bigint
-                constraints:
-                    nullable: false
-            - column:
-                name: permission_id
-                type: bigint
-                constraints:
-                    nullable: false
-            - column:
-                  name: created_time
-                  type: datetime
-            - column:
-                  name: updated_time
-                  type: datetime
+- changeSet:
+    id: 201811021149
+    author: Jeremy Cui
+    changes:
+    - createTable:
+        tableName: roles
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: created_time
+            type: datetime
+        - column:
+            name: updated_time
+            type: datetime
+    - createTable:
+        tableName: permissions
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: created_time
+            type: datetime
+        - column:
+            name: updated_time
+            type: datetime
+    - createTable:
+        tableName: user_roles
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: user_id
+            type: bigint
+            constraints:
+                nullable: false
+        - column:
+            name: role_id
+            type: bigint
+            constraints:
+                nullable: false
+        - column:
+            name: created_time
+            type: datetime
+        - column:
+            name: updated_time
+            type: datetime
+    - createTable:
+        tableName: role_permissions
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: role_id
+            type: bigint
+            constraints:
+                nullable: false
+        - column:
+            name: permission_id
+            type: bigint
+            constraints:
+                nullable: false
+        - column:
+              name: created_time
+              type: datetime
+        - column:
+              name: updated_time
+              type: datetime

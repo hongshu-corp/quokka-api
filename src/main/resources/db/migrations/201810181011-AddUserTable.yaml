@@ -1,36 +1,36 @@
 databaseChangeLog:
-    - changeSet:
-        id: 201810181011
-        author: Jeremy Cui
-        changes:
-        - createTable:
-            tableName: users
-            columns:
-            - column:
-                name: id
-                type: bigint
-                autoIncrement: true
-                constraints:
-                    nullable: false
-                    primaryKey: true
-            - column:
-                name: name
-                type: nvarchar(255)
-                constraints:
-                    nullable: false
-            - column:
-                name: email
-                type: nvarchar(255)
-                constraints:
-                    nullable: false
-            - column:
-                name: password
-                type: nvarchar(255)
-                constraints:
-                    nullable: false
-            - column:
-                name: created_time
-                type: datetime
-            - column:
-                name: updated_time
-                type: datetime
+- changeSet:
+    id: 201810181011
+    author: Jeremy Cui
+    changes:
+    - createTable:
+        tableName: users
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: email
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: password
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: created_time
+            type: datetime
+        - column:
+            name: updated_time
+            type: datetime
