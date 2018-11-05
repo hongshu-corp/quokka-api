@@ -5,8 +5,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity
@@ -14,16 +12,12 @@ import java.util.Collection;
 @Setter
 @Accessors(chain = true)
 @Table(name = "roles")
-public class Role implements Serializable {
+public class Role extends ModelBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
