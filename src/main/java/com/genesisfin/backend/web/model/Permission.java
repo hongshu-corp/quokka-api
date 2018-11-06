@@ -4,8 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 
 @Entity
@@ -13,18 +14,9 @@ import java.util.Collection;
 @Setter
 @Accessors(chain = true)
 @Table(name = "permissions")
-public class Permission {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Permission extends ModelBase {
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
     private Collection<Role> roles;
-
-    private LocalDateTime createdTime;
-
-    private LocalDateTime updatedTime;
 }

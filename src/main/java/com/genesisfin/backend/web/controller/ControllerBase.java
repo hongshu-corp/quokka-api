@@ -49,13 +49,7 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
     public T update(@Valid @RequestBody T model) {
         Optional<T> existing = repository.findById(model.getId());
         if (existing == null) {
-            try {
-                return (T) model.getClass().newInstance();
-            } catch (InstantiationException e) {
-                return null;
-            } catch (IllegalAccessException e) {
-                return null;
-            }
+            return model;
         }
 
         T original = existing.get();
@@ -72,8 +66,8 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
     private void setProperties(T model, T original) {
         if (model == null) return;
 
-        for (Field field : model.getClass().getDeclaredFields()){
-            if(field.isAnnotationPresent(Column.class)){
+        for (Field field : model.getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(Column.class)) {
                 String name = field.getName();
                 name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
@@ -83,15 +77,16 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
                     getMethod = model.getClass().getMethod("get" + name);
                     Object value = getMethod.invoke(model);
                     setMethod = model.getClass().getMethod("set" + name, value.getClass());
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) { }
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                }
 
-                if (getMethod == null || setMethod == null) { continue;}
+                if (getMethod == null || setMethod == null) {
+                    continue;
+                }
 
                 try {
                     setMethod.invoke(original, getMethod.invoke(model));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
@@ -118,7 +113,7 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
         }
     }
 
-    protected void beforeCreate(T model){
+    protected void beforeCreate(T model) {
 
     }
 
