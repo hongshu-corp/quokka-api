@@ -10,12 +10,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static java.util.Arrays.asList;
 
 public abstract class ControllerBase<T extends ModelBase, TRepository extends JpaRepository<T, Long>> {
 
@@ -66,19 +70,20 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
     private void setProperties(T model, T original) {
         if (model == null) return;
 
+        List<Method> methods = asList(model.getClass().getDeclaredMethods());
+
         for (Field field : model.getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(Column.class)) {
+            if (field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(ManyToMany.class)) {
                 String name = field.getName();
                 name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
-                Method getMethod = null;
-                Method setMethod = null;
-                try {
-                    getMethod = model.getClass().getMethod("get" + name);
-                    Object value = getMethod.invoke(model);
-                    setMethod = model.getClass().getMethod("set" + name, value.getClass());
-                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-                }
+                String setMethodName = "set" + name;
+                String getMethodName = "get" + name;
+                Method getMethod =
+                        methods.stream().filter(x -> x.getName().equals(getMethodName)).findFirst().orElse(null);
+                Method setMethod =
+                        methods.stream().filter(x -> x.getName().equals(setMethodName)).findFirst().orElse(null
+                        );
 
                 if (getMethod == null || setMethod == null) {
                     continue;
