@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,6 +17,8 @@ import java.util.Collection;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Role extends ModelBase {
 
+    @Column(nullable = false)
+    @JsonProperty
     private String name;
 
     @ManyToMany(mappedBy = "roles")
@@ -23,9 +26,10 @@ public class Role extends ModelBase {
     private Collection<User> users;
 
     @ManyToMany
+    @JsonProperty
     @JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     @JsonIdentityReference(alwaysAsId = true)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    private Collection<Permission> permissions;
+    private List<Permission> permissions;
 }

@@ -1,5 +1,6 @@
 package com.genesisfin.backend.web.controller;
 
+import com.genesisfin.backend.web.helper.ReflectionHelper;
 import com.genesisfin.backend.web.model.ModelBase;
 import com.genesisfin.backend.web.viewmodel.PagedResult;
 import com.genesisfin.backend.web.viewmodel.PagedResultHelper;
@@ -9,17 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
 import javax.validation.Valid;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import static java.util.Arrays.asList;
 
 public abstract class ControllerBase<T extends ModelBase, TRepository extends JpaRepository<T, Long>> {
 
@@ -58,45 +51,13 @@ public abstract class ControllerBase<T extends ModelBase, TRepository extends Jp
 
         T original = existing.get();
 
-        setProperties(model, original);
+        ReflectionHelper.copyProperties(model, original);
 
         this.beforeUpdate(original);
         this.beforeSave(original);
         repository.save(original);
 
         return original;
-    }
-
-    private void setProperties(T model, T original) {
-        if (model == null) return;
-
-        List<Method> methods = asList(model.getClass().getDeclaredMethods());
-
-        for (Field field : model.getClass().getDeclaredFields()) {
-            if (field.isAnnotationPresent(Column.class) || field.isAnnotationPresent(ManyToMany.class)) {
-                String name = field.getName();
-                name = name.substring(0, 1).toUpperCase() + name.substring(1);
-
-                String setMethodName = "set" + name;
-                String getMethodName = "get" + name;
-                Method getMethod =
-                        methods.stream().filter(x -> x.getName().equals(getMethodName)).findFirst().orElse(null);
-                Method setMethod =
-                        methods.stream().filter(x -> x.getName().equals(setMethodName)).findFirst().orElse(null
-                        );
-
-                if (getMethod == null || setMethod == null) {
-                    continue;
-                }
-
-                try {
-                    setMethod.invoke(original, getMethod.invoke(model));
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
     }
 
     @PatchMapping(path = "/{id}")

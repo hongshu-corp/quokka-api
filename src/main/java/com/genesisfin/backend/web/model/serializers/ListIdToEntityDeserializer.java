@@ -29,7 +29,6 @@ public class ListIdToEntityDeserializer extends JsonDeserializer<Collection<?>> 
     public Collection<?> deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException,
             JsonProcessingException {
 
-        Collection<?> collection = new ArrayList<>();
         ArrayList array = (ArrayList)ctxt.readValue(parser, ArrayList.class);
 
         TypeFactory typeFactory = ctxt.getTypeFactory();

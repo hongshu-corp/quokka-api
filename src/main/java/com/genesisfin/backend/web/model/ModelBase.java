@@ -1,5 +1,6 @@
 package com.genesisfin.backend.web.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,16 +16,20 @@ import java.util.Date;
 public class ModelBase implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
+    @JsonProperty
+    @Getter
+    @Setter
     private Long id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Setter
+    @JsonProperty
     protected Date createdTime;
 
     @LastModifiedDate
+    @JsonProperty
     @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Setter
