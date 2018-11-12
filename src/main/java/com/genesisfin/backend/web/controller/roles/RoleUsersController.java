@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,8 +33,8 @@ public class RoleUsersController {
     // for the role id => change the name to nested_id, something like that.
     @GetMapping(path = "/users")
     public PagedResult<User> index(@PathVariable("role_id") Long roleId,
-                                       @RequestParam(value = "page", defaultValue = "0") int page,
-                                       @RequestParam(value = "limit", defaultValue = "20") int limit) {
+                                   @RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "limit", defaultValue = "20") int limit) {
         Optional<Role> role = roleRepository.findById(roleId);
         if (role == null) {
             return new PagedResult<>();
@@ -54,5 +55,25 @@ public class RoleUsersController {
         Page<User> list = userRepository.findAll(specification, request);
 
         return PagedResultHelper.from(list);
+    }
+
+    @PostMapping(path = "/users")
+    public User create(@PathVariable("role_id")Long roleId) {
+        return new User();
+    }
+
+    @DeleteMapping(path = "/users/{id}")
+    public void destroy(@PathVariable("role_id")Long roleId, @PathVariable("id") Long id) {
+        Optional<Role> role = roleRepository.findById(roleId);
+        Optional<User> optionUser = userRepository.findById(id);
+
+        if (role.isPresent() && optionUser.isPresent()) {
+            User user = optionUser.get();
+            List<Role> roles = user.getRoles();
+            roles.removeIf(x -> x.getId() == role.get().getId());
+
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
     }
 }
