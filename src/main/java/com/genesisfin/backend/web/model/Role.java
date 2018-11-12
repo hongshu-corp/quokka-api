@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class Role extends ModelBase {
 
     @ManyToMany(mappedBy = "roles")
     @JsonIgnore
-    private Collection<User> users;
+    private List<User> users;
 
     @ManyToMany
     @JsonProperty

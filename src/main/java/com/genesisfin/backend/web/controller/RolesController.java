@@ -16,3 +16,4 @@ public class RolesController extends ControllerBase<Role, RoleRepository> {
     }
 
 }
+
