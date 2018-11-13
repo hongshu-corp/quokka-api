@@ -14,11 +14,14 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class ModelBase implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
     @Getter
     @Setter
+//    @JsonDeserialize(using = HashIdDeserializer.class)
+//    @JsonSerialize(using = HashIdSerializer.class)
     private Long id;
 
     @CreatedDate

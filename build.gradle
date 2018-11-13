@@ -52,6 +52,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    compile 'org.hashids:hashids:1.0.3'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.security:spring-security-test'

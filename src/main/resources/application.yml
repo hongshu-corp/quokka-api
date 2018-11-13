@@ -12,3 +12,7 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog-master.yaml
 
+hashid:
+  salt: e5432ecb4471460e8797758062f7f7a7
+  length: 8
+  alphabet: ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789
