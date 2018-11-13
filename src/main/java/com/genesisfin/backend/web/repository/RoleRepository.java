@@ -1,9 +1,8 @@
 package com.genesisfin.backend.web.repository;
 
 import com.genesisfin.backend.web.model.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends IRepository<Role, Long> {
 }

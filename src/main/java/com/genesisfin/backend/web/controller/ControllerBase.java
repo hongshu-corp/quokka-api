@@ -2,19 +2,19 @@ package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.helper.ReflectionHelper;
 import com.genesisfin.backend.web.model.ModelBase;
+import com.genesisfin.backend.web.repository.IRepository;
 import com.genesisfin.backend.web.viewmodel.PagedResult;
 import com.genesisfin.backend.web.viewmodel.PagedResultHelper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class ControllerBase<T extends ModelBase, TRepository extends JpaRepository<T, Long>> {
+public abstract class ControllerBase<T extends ModelBase, TRepository extends IRepository<T, Long>> {
 
     protected TRepository repository;
 
