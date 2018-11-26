@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.List;
+import java.util.Optional;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Setter
@@ -19,6 +20,33 @@ public class Form {
 
     @JsonProperty
     private String placeholder;
+
+    @JsonProperty
+    private Optional<Integer> precision;
+
+    @JsonProperty
+    private Optional<Integer> min;
+
+    @JsonProperty
+    private Optional<Integer> max;
+
+    @JsonProperty
+    private Optional<Integer> step;
+
+    @JsonProperty
+    private Optional<Boolean> disabled;
+
+    @JsonProperty
+    private String inactiveText;
+
+    @JsonProperty
+    private String activeText;
+
+    @JsonProperty
+    private Object activeValue;
+
+    @JsonProperty
+    private String inactiveValue;
 
     @JsonProperty
     private List<Option> options;

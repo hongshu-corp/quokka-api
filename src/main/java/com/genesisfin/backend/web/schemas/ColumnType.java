@@ -6,6 +6,8 @@ public enum ColumnType {
     Text("txt"),
     Password("password"),
     Map("map"),
+    LinkShow("linkShow"),
+    LinkUpdate("linkUpdate"),
     Datetime("datetime");
 
     @JsonValue
