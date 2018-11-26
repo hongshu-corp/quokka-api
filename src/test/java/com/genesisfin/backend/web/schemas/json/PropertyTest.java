@@ -18,7 +18,7 @@ public class PropertyTest {
 
             String result = serialize(property);
 
-            assertEquals("{\"default\":1,\"type\":\"txt\"}", result);
+            assertEquals("{\"type\":\"txt\",\"default\":1}", result);
         }
 
         @Test

@@ -2,14 +2,13 @@ package com.genesisfin.backend.web.schemas.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.genesisfin.backend.web.service.CustomObjectMapper;
 
 public class JacksonTestBase {
     ObjectMapper objectMapper;
 
     public JacksonTestBase() {
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new Jdk8Module());
+        objectMapper = new CustomObjectMapper();
     }
 
     public String serialize(Object object) {
