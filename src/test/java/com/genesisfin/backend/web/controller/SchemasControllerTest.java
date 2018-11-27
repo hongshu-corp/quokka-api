@@ -1,23 +1,11 @@
 package com.genesisfin.backend.web.controller;
 
-import com.genesisfin.backend.web.schemas.json.Model;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertEquals;
+import com.genesisfin.backend.web.service.SchemaService;
+import org.springframework.core.convert.support.DefaultConversionService;
 
 class SchemasControllerTest {
 
-    private SchemasController controller = new SchemasController();
+    private SchemaService service = new SchemaService(new DefaultConversionService());
+    private SchemasController controller = new SchemasController(service);
 
-    @Nested
-    class TestShow {
-        @Test
-        void should_find_the_model() {
-            Model model = controller.show("user");
-
-            assertEquals("user", model.getName());
-        }
-
-    }
 }

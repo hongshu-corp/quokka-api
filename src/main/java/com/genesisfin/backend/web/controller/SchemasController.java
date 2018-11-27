@@ -1,14 +1,9 @@
 package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.schemas.FormFieldType;
-import com.genesisfin.backend.web.schemas.PresentationSchema;
 import com.genesisfin.backend.web.schemas.json.Form;
 import com.genesisfin.backend.web.schemas.json.Model;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
+import com.genesisfin.backend.web.service.SchemaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +16,10 @@ import java.util.Optional;
 @RequestMapping("/schemas")
 public class SchemasController {
 
-//    @Autowired
-//    ConversionService conversionService;
+    private SchemaService schemaService;
+    public SchemasController(SchemaService schemaService) {
+        this.schemaService = schemaService;
+    }
 
     @GetMapping("ping")
     public Form ping() {
@@ -40,21 +37,7 @@ public class SchemasController {
 
     @GetMapping(path = "/{id}")
     public Model show(@PathVariable String id) {
-        String packageName = "com.genesisfin.backend.web";
-
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage(packageName))
-                .setScanners(new TypeAnnotationsScanner(),
-                        new SubTypesScanner()));
-
-        Class<?> findClass = null;
-        for (Class<?> entityClass : reflections.getTypesAnnotatedWith(PresentationSchema.class)) {
-            PresentationSchema annotation = entityClass.getAnnotation(PresentationSchema.class);
-            if (annotation.name().equalsIgnoreCase(id)) {
-                findClass = entityClass;
-                break;
-            }
-        }
+        Class<?> findClass = schemaService.getEntityClass(id);
 
         if (findClass == null) {
             return null;
@@ -66,4 +49,5 @@ public class SchemasController {
 
         return model;
     }
+
 }
