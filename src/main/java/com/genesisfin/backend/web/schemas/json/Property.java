@@ -24,6 +24,9 @@ public class Property {
     private Column column;
 
     @JsonProperty
+    private Form form;
+
+    @JsonProperty
     private List<Option> options;
 
 }

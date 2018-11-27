@@ -3,6 +3,7 @@ package com.genesisfin.backend.web.schemas;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ColumnType {
+    None("none"), // If it is none, use the parent type.
     Text("txt"),
     Password("password"),
     Map("map"),
@@ -13,7 +14,7 @@ public enum ColumnType {
     @JsonValue
     private String type;
 
-    private ColumnType(String value) {
+    ColumnType(String value) {
         this.type = value;
     }
 }

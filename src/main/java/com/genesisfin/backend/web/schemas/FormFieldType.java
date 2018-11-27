@@ -2,7 +2,8 @@ package com.genesisfin.backend.web.schemas;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum FormType {
+public enum FormFieldType {
+    None("none"),
     Text("txt"),
     Number("number"),
     Password("password"),
@@ -24,7 +25,7 @@ public enum FormType {
     @JsonValue
     private String type;
 
-    private FormType(String value) {
+    FormFieldType(String value) {
         this.type = value;
     }
 }

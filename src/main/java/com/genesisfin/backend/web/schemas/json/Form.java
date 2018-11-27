@@ -2,7 +2,7 @@ package com.genesisfin.backend.web.schemas.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.genesisfin.backend.web.schemas.FormType;
+import com.genesisfin.backend.web.schemas.FormFieldType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Accessors(chain = true)
 public class Form {
     @JsonProperty
-    private FormType type;
+    private FormFieldType type;
 
     @JsonProperty
     private String placeholder;

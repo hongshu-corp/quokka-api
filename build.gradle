@@ -12,10 +12,10 @@ buildscript {
     }
 }
 
-def getGitVersion() {
+static def getGitVersion() {
     String tagName = 'git describe --tags --exact-match'.execute().text.trim()
     String commitId = 'git rev-parse HEAD'.execute().text.trim().substring(0, 8)
-    return tagName.isEmpty() ? commitId : tagName;
+    return tagName.isEmpty() ? commitId : tagName
 }
 
 plugins {
@@ -58,6 +58,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-databind'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    compile 'org.reflections:reflections:0.9.11'
 
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.security:spring-security-test'

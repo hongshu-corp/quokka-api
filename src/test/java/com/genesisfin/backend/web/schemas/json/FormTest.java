@@ -1,7 +1,6 @@
 package com.genesisfin.backend.web.schemas.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.genesisfin.backend.web.schemas.FormType;
+import com.genesisfin.backend.web.schemas.FormFieldType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -9,15 +8,15 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-public class FormTest {
+class FormTest {
 
     @Nested
-    public class SerializationTest extends JacksonTestBase {
+    class SerializationTest extends JacksonTestBase {
         @Test
-        public void optinal_value_test() throws JsonProcessingException {
+        void optional_value_test() {
             Form form = new Form();
             form.setMin(Optional.of(3));
-            form.setType(FormType.Checkbox);
+            form.setType(FormFieldType.Checkbox);
 
             String result = serialize(form);
 
