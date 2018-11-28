@@ -1,10 +1,7 @@
 package com.genesisfin.backend.web.service;
 
 import com.genesisfin.backend.web.schemas.*;
-import com.genesisfin.backend.web.schemas.definitions.ColumnDefinition;
-import com.genesisfin.backend.web.schemas.definitions.FieldDefinition;
-import com.genesisfin.backend.web.schemas.definitions.FormFieldDefinition;
-import com.genesisfin.backend.web.schemas.definitions.OptionDefinition;
+import com.genesisfin.backend.web.schemas.definitions.*;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.convert.ConversionService;
@@ -32,8 +29,22 @@ public class SchemaServiceTest {
 
         @PresentationSchema(name = "myentity")
         public class MyEntity {
+            @PresentationField
+            private String name;
         }
     }
+
+    @Nested
+    public class BuildSimpleTest{
+        @Test
+        void test_assignment(){
+            Class<?> aClass = service.getEntityClass("myentity", "com.genesisfin.backend.web.service");
+            ModelDefinition definition = service.build(aClass);
+            assertEquals("myentity", definition.getName());
+            assertEquals(1, definition.getProperties().size());
+        }
+    }
+
 
     @Nested
     public class BuildSimpleModelDefinitionTest {
@@ -164,6 +175,18 @@ public class SchemaServiceTest {
             assertEquals("Required", definition.getRules().get(0).getMessage());
             assertEquals("blur", definition.getRules().get(0).getTrigger());
             assertEquals(true, definition.getRules().get(0).getRequired().get());
+        }
+
+        @Test
+        void empty_options_get_null() throws NoSuchFieldException {
+            FormFieldDefinition definition = getFormFieldDefinition("withRules");
+            assertNull(definition.getOptions());
+        }
+
+        @Test
+        void empty_rules_get_null() throws NoSuchFieldException {
+            FormFieldDefinition definition = getFormFieldDefinition("name");
+            assertNull(definition.getRules());
         }
 
         private FormFieldDefinition getFormFieldDefinition(String fieldName) throws NoSuchFieldException {

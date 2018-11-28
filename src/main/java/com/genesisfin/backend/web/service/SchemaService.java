@@ -86,7 +86,8 @@ public class SchemaService {
         map.put(getFieldKey(field, pf), prop);
         prop.setDefaultValue(buildFieldDefinitionDefaultValue(field, pf));
         prop.setType(buildFieldDefinitionFieldType(pf));
-        prop.setOptions(buildDefinitionOptions(pf.options()));
+        List<OptionDefinition> options = buildDefinitionOptions(pf.options());
+        if (options.size() > 0) prop.setOptions(options);
 
         prop.setForm(buildFormFieldDefinition(pf, field.getAnnotation(PresentationFormField.class)));
         prop.setColumn(buildColumnDefinition(pf, field.getAnnotation(PresentationColumn.class)));
@@ -126,8 +127,11 @@ public class SchemaService {
         // non-arrays
         copyNonDefaultValue(formField, definition, PresentationFormField.class);
 
-        definition.setOptions(buildDefinitionOptions(formField.options()));
-        definition.setRules(buildFormFiledDefinitionRules(formField));
+        List<OptionDefinition> options = buildDefinitionOptions(formField.options());
+        if (options.size() > 0) definition.setOptions(options);
+
+        List<RuleDefinition> rules = buildFormFiledDefinitionRules(formField);
+        if (rules.size() > 0) definition.setRules(rules);
 
         return definition;
     }
@@ -207,7 +211,8 @@ public class SchemaService {
         // non-arrays
         copyNonDefaultValue(column, definition, PresentationColumn.class);
 
-        definition.setOptions(buildDefinitionOptions(column.options()));
+        List<OptionDefinition> options = buildDefinitionOptions(column.options());
+        if (options.size() > 0) definition.setOptions(options);
 
         return definition;
     }

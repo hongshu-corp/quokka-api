@@ -21,6 +21,12 @@ public class ColumnDefinition {
     private String width;
 
     @JsonProperty
+    private String minWidth;
+
+    @JsonProperty
+    private String maxWidth;
+
+    @JsonProperty
     private List<OptionDefinition> options;
 
 }
