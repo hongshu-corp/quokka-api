@@ -33,7 +33,7 @@ public @interface PresentationFormField {
     String dataUrl() default "";
 
     // Get data method
-    String method() default "get";
+    String method() default "";
 
     PresentationOption[] options() default {};
 

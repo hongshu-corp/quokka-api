@@ -49,6 +49,12 @@ public class FormFieldDefinition {
     private String inactiveValue;
 
     @JsonProperty
+    private String dataUrl;
+
+    @JsonProperty
+    private String method;
+
+    @JsonProperty
     private List<OptionDefinition> options;
 
     @JsonProperty

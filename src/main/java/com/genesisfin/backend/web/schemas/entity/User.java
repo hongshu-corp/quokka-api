@@ -53,6 +53,6 @@ public class User {
     private Date updatedTime;
 
     @PresentationField(type = FieldType.Datetime)
-    @PresentationFormField(type = FormFieldType.Checkbox, dataUrl = "/roles")
+    @PresentationFormField(type = FormFieldType.Checkbox, dataUrl = "/roles", method = "get")
     private int[] roles;
 }
