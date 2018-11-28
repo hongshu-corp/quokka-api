@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ColumnType {
     None("none"), // If it is none, use the parent type.
-    Text("txt"),
+    Text("text"),
     Password("password"),
     Map("map"),
     LinkShow("linkShow"),

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum FormFieldType {
     None("none"),
-    Text("txt"),
+    Text("text"),
     Number("number"),
     Password("password"),
     Email("email"),

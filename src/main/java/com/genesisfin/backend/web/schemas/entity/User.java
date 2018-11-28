@@ -14,7 +14,6 @@ import java.util.Date;
 public class User {
 
     @PresentationField
-    @PresentationFormField
     @PresentationColumn(type = ColumnType.LinkShow, width = "50px")
     @PresentationDetailField
     private Long id;

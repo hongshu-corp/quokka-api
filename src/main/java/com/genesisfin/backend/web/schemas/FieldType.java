@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum FieldType {
     None("none"),
-    Text("txt"),
+    Text("text"),
     Password("password"),
     Number("number"),
     Email("email"),
