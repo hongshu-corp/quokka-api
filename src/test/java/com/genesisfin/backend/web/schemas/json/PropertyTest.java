@@ -20,7 +20,7 @@ public class PropertyTest {
 
             String result = serialize(fieldDefinition);
 
-            assertEquals("{\"type\":\"txt\",\"default\":1}", result);
+            assertEquals("{\"type\":\"text\",\"default\":1}", result);
         }
 
         @Test
