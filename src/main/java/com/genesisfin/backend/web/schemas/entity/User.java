@@ -52,7 +52,7 @@ public class User {
     @PresentationDetailField
     private Date updatedTime;
 
-    @PresentationField(type = FieldType.Datetime)
+    @PresentationField
     @PresentationFormField(type = FormFieldType.Checkbox, dataUrl = "/roles", method = "get")
     private int[] roles;
 }
