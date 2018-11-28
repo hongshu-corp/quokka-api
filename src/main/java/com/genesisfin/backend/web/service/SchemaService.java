@@ -67,19 +67,30 @@ public class SchemaService {
         return definition;
     }
 
-    public HashMap<String, FieldDefinition> buildFields(Class<?> aClass) {
-        HashMap<String, FieldDefinition> map = new HashMap<>();
+    public Map<String, FieldDefinition> buildFields(Class<?> aClass) {
+        Map<String, FieldDefinition> map = new LinkedHashMap<>();
+
+        List<Field> ordered = new ArrayList<>();
         for (Field field : aClass.getDeclaredFields()) {
-            HashMap<String, FieldDefinition> kv = buildField(field);
+            PresentationField pf = field.getAnnotation(PresentationField.class);
+            if (pf != null) ordered.add(field);
+        }
+
+        ordered.sort(Comparator.comparingInt(x -> x.getAnnotation(PresentationField.class).order()));
+
+        for(Field field : ordered) {
+            Map<String, FieldDefinition> kv = buildField(field);
             map.putAll(kv);
         }
 
         return map;
     }
+    public Map<String, FieldDefinition> buildField(Field field) {
+        return buildField(field, field.getAnnotation(PresentationField.class));
+    }
 
-    public HashMap<String, FieldDefinition> buildField(Field field) {
-        HashMap<String, FieldDefinition> map = new HashMap<>();
-        PresentationField pf = field.getAnnotation(PresentationField.class);
+    public Map<String, FieldDefinition> buildField(Field field, PresentationField pf) {
+        Map<String, FieldDefinition> map = new LinkedHashMap<>();
         if (pf == null) return map;
 
         FieldDefinition prop = new FieldDefinition();

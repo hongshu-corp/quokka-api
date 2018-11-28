@@ -18,4 +18,6 @@ public @interface PresentationField {
     FieldType type() default FieldType.Text;
 
     PresentationOption[] options() default {};
+
+    int order() default 0;
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.HashMap;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -14,10 +14,10 @@ public class ModelDefinition {
 
     private String name;
 
-    private HashMap<String, FieldDefinition> Properties;
+    private Map<String, FieldDefinition> Properties;
 
     @JsonProperty("props")
-    public HashMap<String, FieldDefinition> getProperties() {
+    public Map<String, FieldDefinition> getProperties() {
         return Properties;
     }
 }

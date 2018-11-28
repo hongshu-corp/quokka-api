@@ -8,8 +8,8 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -45,12 +45,56 @@ public class SchemaServiceTest {
         }
     }
 
+    @Nested
+    public class PropertyOrderTest{
+        @Test
+        void should_order_with_the_write_orders() {
+            Class<?> aClass = service.getEntityClass("ordered", "com.genesisfin.backend.web.service");
+            ModelDefinition definition = service.build(aClass);
+
+            Object[] keys = definition.getProperties().keySet().toArray();
+            assertEquals("id", keys[0]);
+            assertEquals("name", keys[1]);
+            assertEquals("email", keys[2]);
+        }
+
+        @Test
+        void should_order_with_the_order_definition() {
+            Class<?> aClass = service.getEntityClass("specify_order", "com.genesisfin.backend.web.service");
+            ModelDefinition definition = service.build(aClass);
+
+            Object[] keys = definition.getProperties().keySet().toArray();
+            assertEquals("id", keys[0]);
+            assertEquals("email", keys[1]);
+            assertEquals("name", keys[2]);
+        }
+        @PresentationSchema(name = "ordered")
+        public class OrderedEntity{
+            @PresentationField
+            private String id;
+            @PresentationField
+            private String name;
+            @PresentationField
+            private String email;
+        }
+
+        @PresentationSchema(name = "specify_order")
+        public class SpecifyOrderEntity{
+            @PresentationField(order = 1)
+            private String id;
+            @PresentationField(order = 3)
+            private String name;
+            @PresentationField(order = 2)
+            private String email;
+        }
+    }
+
 
     @Nested
     public class BuildSimpleModelDefinitionTest {
         @Test
         void build_fields_simple_test() {
-            HashMap<String, FieldDefinition> map = service.buildFields(TestEntity.class);
+            Map<String, FieldDefinition> map = service.buildFields(TestEntity.class);
 
             assertEquals(2, map.size());
             assertTrue(map.containsKey("name"));
