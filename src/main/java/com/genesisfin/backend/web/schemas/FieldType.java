@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum PropertyType {
+public enum FieldType {
+    None("none"),
     Text("txt"),
     Password("password"),
     Number("number"),
@@ -20,7 +21,7 @@ public enum PropertyType {
     @JsonValue
     private String type;
 
-    PropertyType(String value) {
+    FieldType(String value) {
         this.type = value;
     }
 }

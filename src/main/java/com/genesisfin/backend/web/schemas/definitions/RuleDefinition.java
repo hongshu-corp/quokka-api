@@ -1,4 +1,4 @@
-package com.genesisfin.backend.web.schemas.json;
+package com.genesisfin.backend.web.schemas.definitions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class Rule {
+public class RuleDefinition {
     @JsonProperty
     private Optional<Boolean> required;
 

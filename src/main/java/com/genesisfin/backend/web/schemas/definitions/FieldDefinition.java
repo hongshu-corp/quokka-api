@@ -1,8 +1,8 @@
-package com.genesisfin.backend.web.schemas.json;
+package com.genesisfin.backend.web.schemas.definitions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.genesisfin.backend.web.schemas.PropertyType;
+import com.genesisfin.backend.web.schemas.FieldType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -13,20 +13,26 @@ import java.util.List;
 @Setter
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Property {
+public class FieldDefinition {
     @JsonProperty("default")
     private Object defaultValue;
 
     @JsonProperty
-    private PropertyType type;
+    private FieldType type;
 
     @JsonProperty
-    private Column column;
+    private ColumnDefinition column;
 
     @JsonProperty
-    private Form form;
+    private FormFieldDefinition form;
 
     @JsonProperty
-    private List<Option> options;
+    private DetailFieldDefinition detail;
+
+    @JsonProperty
+    private SearchFieldDefinition searchable;
+
+    @JsonProperty
+    private List<OptionDefinition> options;
 
 }

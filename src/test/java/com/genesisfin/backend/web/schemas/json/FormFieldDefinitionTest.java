@@ -1,6 +1,7 @@
 package com.genesisfin.backend.web.schemas.json;
 
 import com.genesisfin.backend.web.schemas.FormFieldType;
+import com.genesisfin.backend.web.schemas.definitions.FormFieldDefinition;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -8,17 +9,17 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-class FormTest {
+class FormFieldDefinitionTest {
 
     @Nested
     class SerializationTest extends JacksonTestBase {
         @Test
         void optional_value_test() {
-            Form form = new Form();
-            form.setMin(Optional.of(3));
-            form.setType(FormFieldType.Checkbox);
+            FormFieldDefinition formFieldDefinition = new FormFieldDefinition();
+            formFieldDefinition.setMin(Optional.of(3));
+            formFieldDefinition.setType(FormFieldType.Checkbox);
 
-            String result = serialize(form);
+            String result = serialize(formFieldDefinition);
 
             assertEquals("{\"type\":\"checkbox\",\"min\":3}", result);
         }

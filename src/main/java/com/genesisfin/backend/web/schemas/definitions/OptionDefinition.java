@@ -1,4 +1,4 @@
-package com.genesisfin.backend.web.schemas.json;
+package com.genesisfin.backend.web.schemas.definitions;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class Option {
+public class OptionDefinition {
     private String label;
 
     private String value;

@@ -14,7 +14,7 @@ public @interface PresentationFormField {
 
     int precision() default 0;
 
-    int min() default 0;
+    int min() default 10;
 
     int max() default 0;
 

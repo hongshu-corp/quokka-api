@@ -1,4 +1,4 @@
-package com.genesisfin.backend.web.schemas.json;
+package com.genesisfin.backend.web.schemas.definitions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class Column {
+public class ColumnDefinition {
     @JsonProperty
     private ColumnType type;
 
@@ -21,6 +21,6 @@ public class Column {
     private String width;
 
     @JsonProperty
-    private List<Option> options;
+    private List<OptionDefinition> options;
 
 }

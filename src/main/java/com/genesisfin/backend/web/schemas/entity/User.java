@@ -28,7 +28,7 @@ public class User {
     @PresentationSearchField
     private String name;
 
-    @PresentationField(type = PropertyType.Map, options = {
+    @PresentationField(type = FieldType.Map, options = {
             @PresentationOption(label = "msn", value = "tsuijy@msn.com"),
             @PresentationOption(label = "gmail", value = "tsuijy@gmail.com")
     })
@@ -38,22 +38,22 @@ public class User {
     @PresentationSearchField
     private String email;
 
-    @PresentationField(type = PropertyType.Password)
+    @PresentationField(type = FieldType.Password)
     @PresentationFormField(rules = {
             @PresentationRule(required = true, message = "密码是必须的")
     })
     private String password;
 
-    @PresentationField(type = PropertyType.Datetime)
+    @PresentationField(type = FieldType.Datetime)
     @PresentationColumn(width = "140px")
     @PresentationDetailField
     private Date createdTime;
 
-    @PresentationField(type = PropertyType.Datetime)
+    @PresentationField(type = FieldType.Datetime)
     @PresentationDetailField
     private Date updatedTime;
 
-    @PresentationField(type = PropertyType.Datetime)
+    @PresentationField(type = FieldType.Datetime)
     @PresentationFormField(type = FormFieldType.Checkbox, dataUrl = "/roles")
     private int[] roles;
 }

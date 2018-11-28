@@ -1,6 +1,8 @@
 package com.genesisfin.backend.web.schemas.json;
 
-import com.genesisfin.backend.web.schemas.PropertyType;
+import com.genesisfin.backend.web.schemas.FieldType;
+import com.genesisfin.backend.web.schemas.definitions.FieldDefinition;
+import com.genesisfin.backend.web.schemas.definitions.OptionDefinition;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -13,20 +15,20 @@ public class PropertyTest {
     public class SerializationTest extends JacksonTestBase {
         @Test
         public void should_use_the_real_text_for_type() {
-            Property property = new Property();
-            property.setType(PropertyType.Text).setDefaultValue(1);
+            FieldDefinition fieldDefinition = new FieldDefinition();
+            fieldDefinition.setType(FieldType.Text).setDefaultValue(1);
 
-            String result = serialize(property);
+            String result = serialize(fieldDefinition);
 
             assertEquals("{\"type\":\"txt\",\"default\":1}", result);
         }
 
         @Test
         public void options() {
-            Property property = new Property();
-            property.setOptions(Arrays.asList(new Option().setLabel("label").setValue("value")));
+            FieldDefinition fieldDefinition = new FieldDefinition();
+            fieldDefinition.setOptions(Arrays.asList(new OptionDefinition().setLabel("label").setValue("value")));
 
-            assertEquals("{\"options\":[{\"label\":\"label\",\"value\":\"value\"}]}", serialize(property));
+            assertEquals("{\"options\":[{\"label\":\"label\",\"value\":\"value\"}]}", serialize(fieldDefinition));
         }
 
     }

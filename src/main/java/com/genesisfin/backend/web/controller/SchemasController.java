@@ -1,8 +1,8 @@
 package com.genesisfin.backend.web.controller;
 
 import com.genesisfin.backend.web.schemas.FormFieldType;
-import com.genesisfin.backend.web.schemas.json.Form;
-import com.genesisfin.backend.web.schemas.json.Model;
+import com.genesisfin.backend.web.schemas.definitions.FormFieldDefinition;
+import com.genesisfin.backend.web.schemas.definitions.ModelDefinition;
 import com.genesisfin.backend.web.service.SchemaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,32 +22,30 @@ public class SchemasController {
     }
 
     @GetMapping("ping")
-    public Form ping() {
-        Form form = new Form();
-        form.setMin(Optional.of(3));
-        form.setType(FormFieldType.Checkbox);
+    public FormFieldDefinition ping() {
+        FormFieldDefinition formFieldDefinition = new FormFieldDefinition();
+        formFieldDefinition.setMin(Optional.of(3));
+        formFieldDefinition.setType(FormFieldType.Checkbox);
 
-        return form;
+        return formFieldDefinition;
     }
 
     @GetMapping
-    public List<Model> index() {
+    public List<ModelDefinition> index() {
         return null;
     }
 
     @GetMapping(path = "/{id}")
-    public Model show(@PathVariable String id) {
+    public ModelDefinition show(@PathVariable String id) {
         Class<?> findClass = schemaService.getEntityClass(id);
 
         if (findClass == null) {
             return null;
         }
 
-        Model model = new Model();
-        model.setName(id);
+        ModelDefinition definition = schemaService.build(findClass);
 
-
-        return model;
+        return definition;
     }
 
 }

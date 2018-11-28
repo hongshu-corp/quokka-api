@@ -15,4 +15,6 @@ public @interface PresentationColumn {
     String minWidth() default "";
 
     String maxWidth() default "";
+
+    PresentationOption[] options() default {};
 }

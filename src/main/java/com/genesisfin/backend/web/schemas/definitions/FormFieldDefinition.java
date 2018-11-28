@@ -1,4 +1,4 @@
-package com.genesisfin.backend.web.schemas.json;
+package com.genesisfin.backend.web.schemas.definitions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Setter
 @Getter
 @Accessors(chain = true)
-public class Form {
+public class FormFieldDefinition {
     @JsonProperty
     private FormFieldType type;
 
@@ -43,14 +43,14 @@ public class Form {
     private String activeText;
 
     @JsonProperty
-    private Object activeValue;
+    private String activeValue;
 
     @JsonProperty
     private String inactiveValue;
 
     @JsonProperty
-    private List<Option> options;
+    private List<OptionDefinition> options;
 
     @JsonProperty
-    private List<Rule> rules;
+    private List<RuleDefinition> rules;
 }

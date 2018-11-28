@@ -8,10 +8,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
 public @interface PresentationField {
+    // Used as the hash map key.
+    // If the name is null or empty, use the field name.
+    String name() default "";
+
     // Java does not support use Object here.
     String defaultValue() default "";
 
-    PropertyType type() default PropertyType.Text;
+    FieldType type() default FieldType.Text;
 
     PresentationOption[] options() default {};
 }
