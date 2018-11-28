@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.Set;
+
+import static com.genesisfin.backend.web.util.Strings.pluralize;
 
 @RestController
 @RequestMapping("/schemas")
@@ -31,8 +34,14 @@ public class SchemasController {
     }
 
     @GetMapping
-    public List<ModelDefinition> index() {
-        return null;
+    public HashMap<String, ModelDefinition> index() {
+        HashMap<String, ModelDefinition> map = new HashMap<>();
+        Set<Class<?>> classes = schemaService.getEntityClasses();
+        for (Class<?> klass: classes) {
+            ModelDefinition definition = schemaService.build(klass);
+            map.put(pluralize(definition.getName()), definition);
+        }
+        return map;
     }
 
     @GetMapping(path = "/{id}")
