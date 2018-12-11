@@ -24,3 +24,4 @@ ms-deploy.retry
 deploy/
 out/
 .gradle/
+build/
