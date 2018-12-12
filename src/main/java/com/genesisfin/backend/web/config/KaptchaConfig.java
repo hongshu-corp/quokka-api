@@ -20,12 +20,12 @@ public class KaptchaConfig {
     /**
      * 默认生成图形验证码宽度
      */
-    private static final String DEFAULT_IMAGE_WIDTH = "100";
+    private static final String DEFAULT_IMAGE_WIDTH = "150";
 
     /**
      * 默认生成图像验证码高度
      */
-    private static final String DEFAULT_IMAGE_HEIGHT = "40";
+    private static final String DEFAULT_IMAGE_HEIGHT = "50";
 
     /**
      * 边框颜色，合法值： r,g,b (and optional alpha) 或者 white,black,blue.
@@ -54,7 +54,7 @@ public class KaptchaConfig {
         properties.put(KAPTCHA_IMAGE_WIDTH, DEFAULT_IMAGE_WIDTH);
         properties.put(KAPTCHA_IMAGE_HEIGHT, DEFAULT_IMAGE_HEIGHT);
         properties.put(KAPTCHA_IMAGE_FONT_SIZE, DEFAULT_IMAGE_FONT_SIZE);
-        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, 4);
+        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
 
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();

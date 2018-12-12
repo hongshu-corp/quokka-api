@@ -6,7 +6,6 @@ import com.google.code.kaptcha.Producer;
 import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jni.Time;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +59,7 @@ public class AuthCodesController {
     private void removeOutdatedItems() {
         List<AuthCode> codes = repository.findAll();
         for (AuthCode code : codes) {
-            long span = Time.now() - code.getCreatedTime().getTime();
+            long span = Instant.now().getEpochSecond() * 1000 - code.getCreatedTime().getTime();
             if (TimeUnit.MILLISECONDS.toMinutes(span) > 5) {
                 repository.delete(code);
             }
