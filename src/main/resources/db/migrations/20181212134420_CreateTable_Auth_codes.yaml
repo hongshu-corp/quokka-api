@@ -1,0 +1,35 @@
+databaseChangeLog:
+- changeSet:
+    id: 20181212134420_CreateTable_Auth_codes
+    author: Jeremy Cui <tsuijy@gmail.com>
+    changes:
+    - createTable:
+        tableName: auth_codes
+        columns:
+        - column:
+            name: id
+            type: bigint
+            autoIncrement: true
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: key_code
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: code
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: created_time
+            type: datetime
+            constraints:
+                nullable: false
+        - column:
+            name: updated_time
+            type: datetime
+            constraints:
+                nullable: false

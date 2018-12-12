@@ -54,6 +54,8 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     compile 'org.hashids:hashids:1.0.3'
 
+    compile 'com.github.axet:kaptcha:0.0.9' // auth code
+
     compile 'com.fasterxml.jackson.core:jackson-core'
     compile 'com.fasterxml.jackson.core:jackson-annotations'
     compile 'com.fasterxml.jackson.core:jackson-databind'
