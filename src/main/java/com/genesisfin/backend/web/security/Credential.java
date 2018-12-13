@@ -10,5 +10,7 @@ public class Credential {
     private long id;
     private String username;
     private String password;
+    private String authCode;
+    private String random;
 
 }

@@ -1,5 +1,6 @@
 package com.genesisfin.backend.web.config;
 
+import com.genesisfin.backend.web.repository.AuthCodeRepository;
 import com.genesisfin.backend.web.security.JWTAuthenticationFilter;
 import com.genesisfin.backend.web.security.JWTAuthorizationFilter;
 import com.genesisfin.backend.web.security.JWTConfig;
@@ -28,6 +29,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CorsConfig corsConfig;
+
+    @Autowired
+    private AuthCodeRepository authCodeRepository;
 
     @Autowired
     public WebSecurity(UserDetailsService userDetailsService) {
@@ -63,7 +67,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/ping", "/login", "/users/default", "/code").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtConfig))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtConfig, authCodeRepository))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtConfig))
                 // this disables session creation on Spring Security
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

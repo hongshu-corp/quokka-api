@@ -1,9 +1,13 @@
 package com.genesisfin.backend.web.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.genesisfin.backend.web.model.AuthCode;
+import com.genesisfin.backend.web.repository.AuthCodeRepository;
+import com.google.common.base.Strings;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,11 +24,13 @@ import static java.util.Collections.emptyList;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JWTConfig config;
+    private final AuthCodeRepository authCodeRepository;
 
-
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTConfig config){
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTConfig config,
+                                   AuthCodeRepository authCodeRepository){
         this.authenticationManager = authenticationManager;
         this.config = config;
+        this.authCodeRepository = authCodeRepository;
     }
 
     @Override
@@ -32,6 +38,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             Credential credential = new ObjectMapper()
                     .readValue(request.getInputStream(), Credential.class);
+
+            String key = credential.getRandom();
+            String code = credential.getAuthCode();
+            if (Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(code)) throw new InternalAuthenticationServiceException("Invalid authCode");
+
+            AuthCode authCode = authCodeRepository.findAuthCodeByKeyCode("AUTH_" + key).orElse(new AuthCode());
+            if (!authCode.getCode().equals(code)) throw new InternalAuthenticationServiceException("Invalid user or " +
+                    "password or auth code");
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
