@@ -1,5 +1,5 @@
 # You can remove the # to set your custom value
-package_name=com.genesisfin.backend.web
+package_name=info.hongshu.backend.web
 # java_codes_root=src/main/java
 # migration_path=src/main/resources/db/migrations
 # controller_package_name=

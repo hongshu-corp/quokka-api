@@ -8,9 +8,10 @@ security:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/genesisfin_development?autoReconnect=true&createDatabaseIfNotExist=true&characterEncoding=utf8&characterSetResults=utf8&allowPublicKeyRetrieval=true&useSSL=false
-    username: genesisfin
-    password: genesisfinpassword
+    url: jdbc:mysql://localhost:3306/hongshu_development?autoReconnect=true&createDatabaseIfNotExist=true
+    &characterEncoding=utf8&characterSetResults=utf8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hongshu
+    password: hongshupassword
 
   h2:
     console:

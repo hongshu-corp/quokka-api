@@ -26,7 +26,7 @@ plugins {
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.genesisfin'
+group = 'info.hongshu'
 version = getGitVersion()
 sourceCompatibility = 1.8
 
@@ -83,7 +83,7 @@ task cucumber(dependsOn: testClasses) {
             environment "SPRING_PROFILES_ACTIVE", "test"
             main = "cucumber.api.cli.Main"
             classpath = configurations.testRuntimeClasspath + sourceSets.main.output + sourceSets.test.output
-            args = ['--plugin', 'pretty', '--glue', 'com.genesisfin', 'src/test/resources/features']
+            args = ['--plugin', 'pretty', '--glue', 'info.hongshu', 'src/test/resources/features']
         }
     }
     jacoco {
