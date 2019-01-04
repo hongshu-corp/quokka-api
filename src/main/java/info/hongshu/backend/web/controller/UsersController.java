@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/users")
 public class UsersController extends ControllerBase<User, UserRepository> {
@@ -57,13 +55,14 @@ public class UsersController extends ControllerBase<User, UserRepository> {
     @PostMapping(path = "/default")
     public String createDefaultUser() {
         User user = repository.findByEmail(DEFAULT_EMAIL);
-        if (user != null) {
-            return "User already exists";
+        if (user == null) {
+            user = new User();
         }
 
-        String password = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
+//        String password = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
+        String password = "123456";
 
-        user = new User().setEmail(DEFAULT_EMAIL).setName("admin").setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setEmail(DEFAULT_EMAIL).setName("admin").setPassword(new BCryptPasswordEncoder().encode(password));
         repository.save(user);
 
         return password;
