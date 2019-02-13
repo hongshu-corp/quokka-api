@@ -2,7 +2,7 @@ buildscript {
     ext {
         springBootVersion = '2.0.5.RELEASE'
         commonVersion = 'v1.0.0-alpha.5'
-        junitVersion = '5.3.1'
+        junitVersion = '5.4.0'
     }
     repositories {
         mavenCentral()
@@ -47,7 +47,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
     compile("mysql:mysql-connector-java:5.1.47")
     compile 'com.h2database:h2'
-    compile("org.liquibase:liquibase-core:3.6.2")
+    compile("org.liquibase:liquibase-core:3.6.3")
     compile('io.jsonwebtoken:jjwt:0.9.1')
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.4.0'
